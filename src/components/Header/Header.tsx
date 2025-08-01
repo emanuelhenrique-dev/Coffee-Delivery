@@ -1,8 +1,25 @@
+import { Link } from 'react-router-dom';
+import { Aside, HeaderContainer } from './Header.styles';
+import { MapPinIcon, ShoppingCartIcon } from '@phosphor-icons/react';
+
 export function Header() {
   return (
-    <header>
-      <h1>Coffee Delivery Header</h1>
-      {/* Navigation and other header content will go here */}
-    </header>
+    <HeaderContainer>
+      <Link to="/">
+        <img src="/logo.svg" alt="Coffee Delivery Logo" />
+      </Link>
+
+      <Aside>
+        <div>
+          <MapPinIcon size={32} weight="fill" />
+          <span>Porto Alegre, RS</span>
+        </div>
+
+        <Link to="/cart">
+          <ShoppingCartIcon size={32} weight="fill" />
+          <span>3</span>
+        </Link>
+      </Aside>
+    </HeaderContainer>
   );
 }
