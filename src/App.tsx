@@ -1,14 +1,19 @@
 import { ThemeProvider } from 'styled-components';
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { coffees } from './assets/coffees/coffees';
 
 import { defaultTheme } from './styles/themes/default';
 import { GlobalStyle } from './styles/global';
+import { Router } from './pages/Router';
+import { BrowserRouter } from 'react-router-dom';
+
 export function App() {
   return (
     <ThemeProvider theme={defaultTheme}>
       <GlobalStyle />
-      <h1>Hello world</h1>
-      <img src={coffees[1].image} alt="Americano Coffee" />
+      <BrowserRouter>
+        <Router />
+      </BrowserRouter>
     </ThemeProvider>
   );
 }
