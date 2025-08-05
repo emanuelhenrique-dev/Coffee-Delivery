@@ -11,12 +11,12 @@ export function Header() {
 
       <Aside>
         <div>
-          <MapPinIcon size={32} weight="fill" />
+          <MapPinIcon size={22} weight="fill" />
           <span>Porto Alegre, RS</span>
         </div>
 
         <Link to="/cart">
-          <ShoppingCartIcon size={32} weight="fill" />
+          <ShoppingCartIcon size={22} weight="fill" />
           <span>3</span>
         </Link>
       </Aside>
