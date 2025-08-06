@@ -8,6 +8,11 @@ export const Container = styled.main`
   padding: 40px 20px;
   margin: 0 auto;
   gap: 32px;
+
+  @media (max-width: 1050px) {
+    flex-direction: column;
+    padding: 20px;
+  }
 `;
 
 export const InfoContainer = styled.div`
@@ -78,6 +83,10 @@ export const PaymentContainer = styled(FormsContainer)``;
 export const PaymentHeading = styled(Heading)`
   svg {
     color: ${({ theme }) => theme.colors.purple};
+  }
+
+  p {
+    padding-top: 2px;
   }
 `;
 

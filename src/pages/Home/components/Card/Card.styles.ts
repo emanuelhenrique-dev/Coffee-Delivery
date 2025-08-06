@@ -98,38 +98,38 @@ export const Order = styled.div<{ $itemAdded?: boolean }>`
   }
 `;
 
-export const QuantityInput = styled.div`
-  width: 72px;
-  max-width: 100%;
-  padding: 8px;
-  background-color: ${({ theme }) => theme.colors['base-button']};
-  border-radius: 6px;
+// export const QuantityInput = styled.div`
+//   width: 72px;
+//   max-width: 100%;
+//   padding: 8px;
+//   background-color: ${({ theme }) => theme.colors['base-button']};
+//   border-radius: 6px;
 
-  display: flex;
-  gap: 4px;
-  align-items: center;
-  justify-content: space-between;
-  flex: 1;
+//   display: flex;
+//   gap: 4px;
+//   align-items: center;
+//   justify-content: space-between;
+//   flex: 1;
 
-  button {
-    background-color: transparent;
-    display: flex;
-    align-items: center;
-  }
+//   button {
+//     background-color: transparent;
+//     display: flex;
+//     align-items: center;
+//   }
 
-  button svg {
-    color: ${({ theme }) => theme.colors.purple};
+//   button svg {
+//     color: ${({ theme }) => theme.colors.purple};
 
-    transition: all 0.2s;
+//     transition: all 0.2s;
 
-    &:hover {
-      color: ${({ theme }) => theme.colors['purple-dark']};
-    }
-  }
+//     &:hover {
+//       color: ${({ theme }) => theme.colors['purple-dark']};
+//     }
+//   }
 
-  span {
-    padding-top: 2px;
-    color: ${({ theme }) => theme.colors['base-title']};
-    text-align: center;
-  }
-`;
+//   span {
+//     padding-top: 2px;
+//     color: ${({ theme }) => theme.colors['base-title']};
+//     text-align: center;
+//   }
+// `;

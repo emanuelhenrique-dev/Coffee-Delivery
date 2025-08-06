@@ -1,9 +1,8 @@
 import {
-  BankIcon,
   CreditCardIcon,
   CurrencyDollarIcon,
   MapPinIcon,
-  MoneyIcon
+  TrashIcon
 } from '@phosphor-icons/react';
 import {
   AddressContainer,
@@ -13,6 +12,7 @@ import {
   CartTotalInfo,
   CheckoutButton,
   Coffee,
+  CoffeeInfo,
   Container,
   InfoContainer,
   PaymentContainer,
@@ -20,6 +20,11 @@ import {
   PaymentOptions
 } from './Cart.styles';
 import { Link } from 'react-router-dom';
+
+import { coffees } from '../../assets/coffees/coffees';
+import { QuantityInput } from '../../components/QuantityInput/QuantityInput';
+import { Radio } from './Form/Radio/Radio';
+import { TextInput } from './Form/TextInput/TextInput';
 
 export function Cart() {
   return (
@@ -36,18 +41,57 @@ export function Cart() {
               </div>
             </AddressHeading>
             <AddressForm>
-              <input
-                type="number"
+              <TextInput
                 placeholder="CEP"
-                required
-                pattern="[0-9]{5}-[0-9]{3}"
+                type="number"
+                containerProps={{ style: { gridArea: 'cep' } }}
+                // error={errors.cep}
+                // {...register('cep', { valueAsNumber: true })}
               />
-              <input placeholder="Rua" required />
-              <input placeholder="Número" required />
-              <input placeholder="Complemento" />
-              <input placeholder="Bairro" required />
-              <input placeholder="Cidade" required />
-              <input placeholder="UF" required pattern="[A-Z]{2}" />
+
+              <TextInput
+                placeholder="Rua"
+                containerProps={{ style: { gridArea: 'street' } }}
+                // error={errors.street}
+                // {...register('street')}
+              />
+
+              <TextInput
+                placeholder="Número"
+                containerProps={{ style: { gridArea: 'number' } }}
+                // error={errors.number}
+                // {...register('number')}
+              />
+
+              <TextInput
+                placeholder="Complemento"
+                optional
+                containerProps={{ style: { gridArea: 'fullAddress' } }}
+                // error={errors.fullAddress}
+                // {...register('fullAddress')}
+              />
+
+              <TextInput
+                placeholder="Bairro"
+                containerProps={{ style: { gridArea: 'neighborhood' } }}
+                // error={errors.neighborhood}
+                // {...register('neighborhood')}
+              />
+
+              <TextInput
+                placeholder="Cidade"
+                containerProps={{ style: { gridArea: 'city' } }}
+                // error={errors.city}
+                // {...register('city')}
+              />
+
+              <TextInput
+                placeholder="UF"
+                maxLength={2}
+                containerProps={{ style: { gridArea: 'state' } }}
+                // error={errors.state}
+                // {...register('state')}
+              />
             </AddressForm>
           </AddressContainer>
 
@@ -63,22 +107,20 @@ export function Cart() {
               </div>
             </PaymentHeading>
             <PaymentOptions>
-              <label>
-                <input type="radio" name="payment" value="credit" required />
-                <CreditCardIcon size={16} />
-                <span>Cartão de crédito</span>
-              </label>
-              <label>
-                <input type="radio" name="payment" value="debit" />
-                <BankIcon size={16} />
-                <span>Cartão de débito</span>
-              </label>
-              <label>
-                <input type="radio" name="payment" value="money" />
-                <MoneyIcon size={16} />
-                <span>Dinheiro</span>
-                Dinheiro
-              </label>
+              <div>
+                <Radio isSelected={true} value="credit">
+                  <CreditCardIcon size={16} />
+                  <span>Cartão de débito</span>
+                </Radio>
+                <Radio isSelected={false} value="debit">
+                  <CreditCardIcon size={16} />
+                  <span>Cartão de débito</span>
+                </Radio>
+                <Radio isSelected={false} value="cash">
+                  <CreditCardIcon size={16} />
+                  <span>Dinheiro</span>
+                </Radio>
+              </div>
             </PaymentOptions>
           </PaymentContainer>
         </form>
@@ -90,13 +132,57 @@ export function Cart() {
         <p>Lista de cafés selecionados será exibida aqui.</p>
         <CartTotal>
           <Coffee>
-            <span>Café X</span>
-            <span>R$ 12,00</span>
+            <div>
+              <img src={coffees[0].image} alt="" />
+              <div>
+                <span>Expresso Tradicional</span>
+                <CoffeeInfo>
+                  <QuantityInput
+                    quantity={1}
+                    incrementQuantity={() => {}}
+                    decrementQuantity={() => {}}
+                  />
+                  <button>
+                    <TrashIcon />
+                    <span>Remover</span>
+                  </button>
+                </CoffeeInfo>
+              </div>
+            </div>
+
+            <aside>
+              <span>R$ 9,90</span>
+            </aside>
           </Coffee>
+
+          <span />
+
           <Coffee>
-            <span>Café Y</span>
-            <span>R$ 45,00</span>
+            <div>
+              <img src={coffees[5].image} alt="" />
+              <div>
+                <span>Latte</span>
+                <CoffeeInfo>
+                  <QuantityInput
+                    quantity={1}
+                    incrementQuantity={() => {}}
+                    decrementQuantity={() => {}}
+                  />
+                  <button>
+                    <TrashIcon />
+                    <span>Remover</span>
+                  </button>
+                </CoffeeInfo>
+              </div>
+            </div>
+
+            <aside>
+              <span>R$ 9,90</span>
+            </aside>
           </Coffee>
+
+          <span />
+
           <CartTotalInfo>
             <div>
               <span>Total de itens</span>

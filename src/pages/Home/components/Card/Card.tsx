@@ -6,12 +6,12 @@ import {
   Description,
   Order,
   Price,
-  QuantityInput,
   Tags,
   Title
 } from './Card.styles';
-import { MinusIcon, PlusIcon, ShoppingCartIcon } from '@phosphor-icons/react';
+import { ShoppingCartIcon } from '@phosphor-icons/react';
 import { useTheme } from 'styled-components';
+import { QuantityInput } from '../../../../components/QuantityInput/QuantityInput';
 
 interface Coffee {
   id: string;
@@ -61,15 +61,11 @@ export function Card({ coffee }: CardProps) {
         </Price>
 
         <Order>
-          <QuantityInput>
-            <button onClick={decrementQuantity}>
-              <MinusIcon size={14} />
-            </button>
-            <span>{quantity}</span>
-            <button onClick={incrementQuantity}>
-              <PlusIcon size={14} />
-            </button>
-          </QuantityInput>
+          <QuantityInput
+            quantity={quantity}
+            incrementQuantity={incrementQuantity}
+            decrementQuantity={decrementQuantity}
+          />
 
           <button>
             <ShoppingCartIcon size={22} color={theme.colors['base-card']} />
