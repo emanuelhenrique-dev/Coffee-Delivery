@@ -1,8 +1,67 @@
+import { useTheme } from 'styled-components';
+import { Container, Heading, Info, InfoContent, Order } from './Success.styles';
+import delivery from '../../assets/delivery.svg';
+import {
+  CurrencyDollarIcon,
+  MapPinIcon,
+  TimerIcon
+} from '@phosphor-icons/react';
+
 export function Success() {
+  const theme = useTheme();
+
   return (
-    <div>
-      <h1>Success Page</h1>
-      {/* Cart content will go here */}
-    </div>
+    <Container>
+      <Order>
+        <Heading>
+          <h2>Pedido confirmado</h2>
+          <span>Agora é só aguardar que logo o café chegará até você</span>
+        </Heading>
+        <Info>
+          <InfoContent>
+            <div>
+              <MapPinIcon
+                color={theme.colors.white}
+                style={{ backgroundColor: theme.colors.purple }}
+                size={32}
+              />
+
+              <div>
+                <span>
+                  Entrega em <strong> Rua João Daniel Martinelli, 102</strong>
+                </span>
+                <span>Farrapos - Porto Alegre, RS</span>
+              </div>
+            </div>
+
+            <div>
+              <TimerIcon
+                color={theme.colors.white}
+                style={{ backgroundColor: theme.colors.yellow }}
+                size={32}
+              />
+
+              <div>
+                <span>Previsão de entrega</span>
+                <strong>20 min - 30 min</strong>
+              </div>
+            </div>
+
+            <div>
+              <CurrencyDollarIcon
+                color={theme.colors.white}
+                style={{ backgroundColor: theme.colors['yellow-dark'] }}
+                size={32}
+              />
+              <div>
+                <span>Pagamento na entrega</span>
+                <strong>Cartão de Crédito</strong>
+              </div>
+            </div>
+          </InfoContent>
+        </Info>
+      </Order>
+      <img src={delivery} alt="Pedido concluído" />
+    </Container>
   );
 }
