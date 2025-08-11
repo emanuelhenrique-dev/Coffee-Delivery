@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import {
   CoffeeImg,
   Container,
@@ -9,9 +9,10 @@ import {
   Tags,
   Title
 } from './Card.styles';
-import { ShoppingCartIcon } from '@phosphor-icons/react';
+import { CheckFatIcon, ShoppingCartIcon } from '@phosphor-icons/react';
 import { useTheme } from 'styled-components';
 import { QuantityInput } from '../../../../components/QuantityInput/QuantityInput';
+import { CartContext } from '../../../../contexts/CartContext';
 
 interface Coffee {
   id: string;
@@ -28,7 +29,9 @@ interface CardProps {
 
 export function Card({ coffee }: CardProps) {
   const [quantity, setQuantity] = useState(1);
+  const [isItemAdded, setIsItemAdded] = useState(false);
   const theme = useTheme();
+  const { addItem } = useContext(CartContext);
 
   function incrementQuantity() {
     setQuantity((state) => state + 1);
@@ -39,6 +42,28 @@ export function Card({ coffee }: CardProps) {
       setQuantity((state) => state - 1);
     }
   }
+
+  function handleAddItem() {
+    addItem({ id: coffee.id, quantity });
+    setIsItemAdded(true);
+    setQuantity(1);
+  }
+
+  useEffect(() => {
+    let timeout: number;
+
+    if (isItemAdded) {
+      timeout = setTimeout(() => {
+        setIsItemAdded(false);
+      }, 1000);
+    }
+
+    return () => {
+      if (timeout) {
+        clearTimeout(timeout);
+      }
+    };
+  }, [isItemAdded]);
 
   return (
     <Container>
@@ -67,8 +92,20 @@ export function Card({ coffee }: CardProps) {
             decrementQuantity={decrementQuantity}
           />
 
-          <button>
-            <ShoppingCartIcon size={22} color={theme.colors['base-card']} />
+          <button disabled={isItemAdded} onClick={handleAddItem}>
+            {isItemAdded ? (
+              <CheckFatIcon
+                weight="fill"
+                size={22}
+                color={theme.colors['base-card']}
+              />
+            ) : (
+              <ShoppingCartIcon
+                size={22}
+                color={theme.colors['base-card']}
+                weight="fill"
+              />
+            )}
           </button>
         </Order>
       </Control>

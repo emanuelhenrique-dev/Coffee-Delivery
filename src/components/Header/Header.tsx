@@ -1,8 +1,12 @@
 import { Link } from 'react-router-dom';
 import { Aside, HeaderContainer } from './Header.styles';
 import { MapPinIcon, ShoppingCartIcon } from '@phosphor-icons/react';
+import { useContext } from 'react';
+import { CartContext } from '../../contexts/CartContext';
 
 export function Header() {
+  const { cart } = useContext(CartContext);
+
   return (
     <HeaderContainer>
       <Link to="/">
@@ -15,9 +19,9 @@ export function Header() {
           <span>Porto Alegre, RS</span>
         </div>
 
-        <Link to="/cart">
+        <Link to="/cart" aria-disabled={cart.length === 0}>
           <ShoppingCartIcon size={22} weight="fill" />
-          <span>3</span>
+          {cart.length > 0 ? <span>{cart.length}</span> : null}
         </Link>
       </Aside>
     </HeaderContainer>

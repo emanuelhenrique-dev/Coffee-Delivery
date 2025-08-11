@@ -25,8 +25,44 @@ import { coffees } from '../../assets/coffees/coffees';
 import { QuantityInput } from '../../components/QuantityInput/QuantityInput';
 import { Radio } from './Form/Radio/Radio';
 import { TextInput } from './Form/TextInput/TextInput';
+import { Fragment, useContext } from 'react';
+import { CartContext } from '../../contexts/CartContext';
 
 export function Cart() {
+  const { cart, incrementItemQuantity, decrementItemQuantity, removeItem } =
+    useContext(CartContext);
+
+  const coffeesInCart = cart.map((item) => {
+    const coffeeInfo = coffees.find((coffee) => coffee.id === item.id);
+
+    if (!coffeeInfo) {
+      throw new Error('Invalid coffee.');
+    }
+
+    return {
+      ...coffeeInfo,
+      quantity: item.quantity
+    };
+  });
+
+  const totalItemsPrice = coffeesInCart.reduce((previousValue, currentItem) => {
+    return (previousValue += currentItem.price * currentItem.quantity);
+  }, 0);
+
+  const Shipping = 5.0;
+
+  function handleItemIncrement(itemId: string) {
+    incrementItemQuantity(itemId);
+  }
+
+  function handleItemDecrement(itemId: string) {
+    decrementItemQuantity(itemId);
+  }
+
+  function handleItemRemove(itemId: string) {
+    removeItem(itemId);
+  }
+
   return (
     <Container>
       <InfoContainer>
@@ -131,70 +167,64 @@ export function Cart() {
 
         <p>Lista de cafés selecionados será exibida aqui.</p>
         <CartTotal>
-          <Coffee>
-            <div>
-              <img src={coffees[0].image} alt="" />
-              <div>
-                <span>Expresso Tradicional</span>
-                <CoffeeInfo>
-                  <QuantityInput
-                    quantity={1}
-                    incrementQuantity={() => {}}
-                    decrementQuantity={() => {}}
-                  />
-                  <button>
-                    <TrashIcon />
-                    <span>Remover</span>
-                  </button>
-                </CoffeeInfo>
-              </div>
-            </div>
+          {coffeesInCart.map((coffee) => (
+            <Fragment key={coffee.id}>
+              <Coffee>
+                <div>
+                  <img src={coffee.image} alt={coffee.title} />
+                  <div>
+                    <span>{coffee.title}</span>
 
-            <aside>
-              <span>R$ 9,90</span>
-            </aside>
-          </Coffee>
+                    <CoffeeInfo>
+                      <QuantityInput
+                        quantity={coffee.quantity}
+                        incrementQuantity={() => handleItemIncrement(coffee.id)}
+                        decrementQuantity={() => handleItemDecrement(coffee.id)}
+                      />
+                      <button onClick={() => handleItemRemove(coffee.id)}>
+                        <TrashIcon />
+                        <span>Remover</span>
+                      </button>
+                    </CoffeeInfo>
+                  </div>
+                </div>
 
-          <span />
+                <aside>R$ {coffee.price?.toFixed(2)}</aside>
+              </Coffee>
 
-          <Coffee>
-            <div>
-              <img src={coffees[5].image} alt="" />
-              <div>
-                <span>Latte</span>
-                <CoffeeInfo>
-                  <QuantityInput
-                    quantity={1}
-                    incrementQuantity={() => {}}
-                    decrementQuantity={() => {}}
-                  />
-                  <button>
-                    <TrashIcon />
-                    <span>Remover</span>
-                  </button>
-                </CoffeeInfo>
-              </div>
-            </div>
-
-            <aside>
-              <span>R$ 9,90</span>
-            </aside>
-          </Coffee>
-
-          <span />
+              <span />
+            </Fragment>
+          ))}
 
           <CartTotalInfo>
             <div>
               <span>Total de itens</span>
-              <span>R$ 99,00</span>
+              <span>
+                {new Intl.NumberFormat('pt-br', {
+                  currency: 'BRL',
+                  style: 'currency'
+                }).format(totalItemsPrice)}
+              </span>
             </div>
             <div>
               <span>Entrega</span>
-              <span>R$ 5,00</span>
+              <span>
+                {' '}
+                {new Intl.NumberFormat('pt-br', {
+                  currency: 'BRL',
+                  style: 'currency'
+                }).format(Shipping)}
+              </span>
             </div>
             <div>
               <span>Total</span>
-              <span>R$ 104,00</span>
+              <span>
+                {' '}
+                {new Intl.NumberFormat('pt-br', {
+                  currency: 'BRL',
+                  style: 'currency'
+                }).format(Shipping + totalItemsPrice)}
+              </span>
             </div>
           </CartTotalInfo>
           <CheckoutButton>
