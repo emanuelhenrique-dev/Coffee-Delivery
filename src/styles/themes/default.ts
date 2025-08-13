@@ -1,4 +1,5 @@
 export const defaultTheme = {
+  name: 'light',
   colors: {
     white: '#FFFFFF',
     background: '#FAFAFA',
@@ -14,6 +15,7 @@ export const defaultTheme = {
     'purple-light': '#EBE5F9',
     purple: '#8047F8',
     'purple-dark': '#4B2995',
+    gray: '#474747',
 
     'yellow-light': '#F1E9C9',
     yellow: '#DBAC2C',

@@ -70,3 +70,54 @@ export const Aside = styled.aside`
     }
   }
 `;
+
+export const Switch = styled.label`
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .slider {
+    position: absolute;
+    right: 0;
+    height: 30px;
+    width: 60px;
+    border-radius: 30px;
+    background-color: #272751;
+    cursor: pointer;
+    transition: 0.5s;
+    z-index: 99;
+
+    &::before {
+      position: absolute;
+      left: 5px;
+      bottom: 5px;
+      height: 20px;
+      width: 20px;
+      content: '';
+      border-radius: 50%;
+      background-color: white;
+      transition: 0.5s;
+    }
+  }
+
+  #toggle {
+    opacity: 0;
+
+    &:checked {
+      & ~ .slider {
+        background-color: white;
+      }
+      & ~ .slider:before {
+        background-color: white;
+        box-shadow: inset -8px -6px 0 0px #272751;
+        transform: translate(30px, 1px);
+      }
+      & ~ .slide-block {
+        left: 0;
+        border-bottom-right-radius: 0;
+        border-top-right-radius: 0;
+      }
+    }
+  }
+`;

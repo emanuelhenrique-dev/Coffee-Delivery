@@ -22,7 +22,8 @@ export const Container = styled.label`
   }
 
   &[data-state='true'] {
-    background-color: ${({ theme }) => theme.colors['purple-light']};
+    background-color: ${({ theme }) =>
+      theme.name === 'dark' ? theme.colors.gray : theme.colors['purple-light']};
     border-color: ${({ theme }) => theme.colors.purple};
   }
 

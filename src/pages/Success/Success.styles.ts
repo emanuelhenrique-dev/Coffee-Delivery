@@ -63,7 +63,7 @@ export const Info = styled.div`
 
 export const InfoContent = styled.div`
   padding: 40px;
-  background-color: white;
+  background-color: ${({ theme }) => theme.colors['white']};
   border-radius: 6px 36px;
 
   display: flex;
