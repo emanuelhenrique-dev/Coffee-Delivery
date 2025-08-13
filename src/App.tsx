@@ -10,11 +10,12 @@ export function App() {
   return (
     <ThemeProvider theme={defaultTheme}>
       <GlobalStyle />
-      <CartContextProvider>
-        <BrowserRouter>
+
+      <BrowserRouter>
+        <CartContextProvider>
           <Router />
-        </BrowserRouter>
-      </CartContextProvider>
+        </CartContextProvider>
+      </BrowserRouter>
     </ThemeProvider>
   );
 }

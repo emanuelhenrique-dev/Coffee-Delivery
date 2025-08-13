@@ -1,12 +1,13 @@
 import { produce } from 'immer';
 import { ActionTypes } from './actions';
+import { OrderInfo } from '../../pages/Cart/Cart';
 
 export interface Item {
   id: string;
   quantity: number;
 }
 
-export interface Order {
+export interface Order extends OrderInfo {
   id: number;
   items: Item[];
 }
@@ -16,6 +17,8 @@ interface CartState {
   orders: Order[];
 }
 
+// Cancelar o eslint do any do action
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const cartReducer = (state: CartState, action: any) => {
   switch (action.type) {
     case ActionTypes.ADD_ITEM:
@@ -59,6 +62,12 @@ export const cartReducer = (state: CartState, action: any) => {
         if (itemToDecrement?.id && itemToDecrement.quantity > 1) {
           itemToDecrement.quantity -= 1;
         }
+      });
+
+    case ActionTypes.CHECKOUT_CART:
+      return produce(state, (draft) => {
+        draft.orders.push(action.payload.order);
+        draft.cart = [];
       });
 
     default:

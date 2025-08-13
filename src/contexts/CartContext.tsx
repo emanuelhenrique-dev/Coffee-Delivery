@@ -2,10 +2,12 @@ import { createContext, ReactNode, useEffect, useReducer } from 'react';
 import { cartReducer, Item, Order } from '../reducers/cart/reducer';
 import {
   addItemAction,
+  checkoutCartAction,
   decrementItemQuantityAction,
   incrementItemQuantityAction,
   removeItemAction
 } from '../reducers/cart/actions';
+import { OrderInfo } from '../pages/Cart/Cart';
 
 interface CartContextType {
   cart: Item[];
@@ -14,6 +16,7 @@ interface CartContextType {
   removeItem: (itemId: Item['id']) => void;
   decrementItemQuantity: (itemId: Item['id']) => void;
   incrementItemQuantity: (itemId: Item['id']) => void;
+  checkout: (order: OrderInfo) => void;
 }
 
 // eslint-disable-next-line react-refresh/only-export-components
@@ -60,6 +63,10 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
     dispatch(decrementItemQuantityAction(itemId));
   }
 
+  function checkout(order: OrderInfo) {
+    dispatch(checkoutCartAction(order));
+  }
+
   useEffect(() => {
     if (cartState) {
       const stateJSON = JSON.stringify(cartState);
@@ -76,7 +83,8 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
         addItem,
         removeItem,
         incrementItemQuantity,
-        decrementItemQuantity
+        decrementItemQuantity,
+        checkout
       }}
     >
       {children}

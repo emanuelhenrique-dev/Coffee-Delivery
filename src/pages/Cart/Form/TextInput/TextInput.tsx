@@ -5,17 +5,18 @@ import {
   InputHTMLAttributes,
   useState
 } from 'react';
-import { Box, Container } from './TextInput.styles';
+import { Box, Container, ErrorMessage } from './TextInput.styles';
+import { FieldError } from 'react-hook-form';
 // seu styled-component
 
 type Props = InputHTMLAttributes<HTMLInputElement> & {
   optional?: boolean;
   containerProps?: HTMLAttributes<HTMLDivElement>;
-  // error?: FieldError;
+  error?: FieldError;
 };
 
 export const TextInput = forwardRef<HTMLInputElement, Props>(function TextInput(
-  { optional, containerProps, onFocus, onBlur, ...rest },
+  { optional, error, containerProps, onFocus, onBlur, ...rest },
   ref
 ) {
   const [isFocused, setIsFocused] = useState(false);
@@ -44,9 +45,9 @@ export const TextInput = forwardRef<HTMLInputElement, Props>(function TextInput(
         {optional ? <span>Opcional</span> : null}
       </Container>
 
-      {/* {error?.message ? (
+      {error?.message ? (
         <ErrorMessage role="alert">{error.message}</ErrorMessage>
-      ) : null} */}
+      ) : null}
     </Box>
   );
 });

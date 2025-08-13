@@ -1,4 +1,5 @@
 import { Item } from './reducer';
+import { OrderInfo } from '../../pages/Cart/Cart';
 
 export const ActionTypes = {
   ADD_ITEM: 'ADD_ITEM',
@@ -42,6 +43,15 @@ export function decrementItemQuantityAction(itemId: Item['id']) {
     type: ActionTypes.DECREMENT_ITEM_QUANTITY,
     payload: {
       itemId
+    }
+  };
+}
+
+export function checkoutCartAction(order: OrderInfo) {
+  return {
+    type: ActionTypes.CHECKOUT_CART,
+    payload: {
+      order
     }
   };
 }
