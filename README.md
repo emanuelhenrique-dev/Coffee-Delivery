@@ -51,6 +51,7 @@ Durante o desenvolvimento, algumas experiências importantes foram:
 - Uso de **Styled-Components** para estilização dos componentes
 - Organização de dados (ex.: array de coffees) de forma estruturada para consumo pelo Context.
 - Uso de **Zod** para validação de objetos, além da integração com TypeScript.
+- uso do react-router-dom para o roteamento 
 
 
 ```ts
